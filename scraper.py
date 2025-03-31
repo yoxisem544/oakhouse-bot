@@ -8,8 +8,13 @@ BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CHAT_ID = os.getenv("TO_LIYING_CHAT_ID")  # 你的 Telegram 群組或個人 ID
 
 # 檢查環境變數是否正確
-if not BOT_TOKEN or not CHAT_ID:
+if not TELEGRAM_BOT_TOKEN or not TO_LIYING_CHAT_ID:
+    print("❌ 環境變數沒有正確讀取！")
+    print(f"TELEGRAM_BOT_TOKEN: {repr(TELEGRAM_BOT_TOKEN)}")  # 看看是不是 None
+    print(f"TO_LIYING_CHAT_ID: {repr(TO_LIYING_CHAT_ID)}")
     raise ValueError("請設置環境變數 TELEGRAM_BOT_TOKEN 和 TO_LIYING_CHAT_ID")
+else:
+    print("✅ 環境變數讀取成功！")
 
 # 爬取 OakHouse 頁面
 URL = "https://www.oakhouse.jp/cn/house/1074#room"
