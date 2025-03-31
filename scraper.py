@@ -35,11 +35,15 @@ with sync_playwright() as p:
     page.goto(URL)
 
     # 等待資料加載，直到指定的元素出現
+    print("開始讀取 URL")
     page.wait_for_selector("#room")
+    print("等待元素出現")
 
     # 抓取頁面 HTML
     html = page.content()
     soup = BeautifulSoup(html, "html.parser")
+    print("HTML")
+    print(html)
 
     # 抓取 id="room" 且 class="p-room c-selection" 的元素
     element = soup.find(id="room", class_="p-room c-selection")
