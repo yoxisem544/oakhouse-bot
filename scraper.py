@@ -36,17 +36,9 @@ if response.status_code != 200:
 
 soup = BeautifulSoup(response.text, "html.parser")
 
-# 解析房間資訊（這部分需要根據 HTML 結構調整）
-rooms = []
-room_divs = soup.select(".room-list .room-item")
-print(room_divs)
-for room_div in room_divs:
-    room_num = room_div.select_one(".room-number").text.strip()
-    room_type = room_div.select_one(".room-type").text.strip()
-    availability = room_div.select_one(".availability-date").text.strip()
-
-    if "空房" in availability:
-        rooms.append(f"{room_num} {room_type} / 空房日：{availability}")
+# 抓取 id="room" 且 class="p-room c-selection" 的元素
+available_room_section = soup.find(id="room", class_="p-room c-selection")
+print(available_room_section)
 
 # 構建訊息
 message = "📢 OAKHouse 最新狀態\n" + "\n".join(rooms) if rooms else "目前沒有空房"
