@@ -27,9 +27,28 @@ def send_telegram_message(bot_token, chat_id, message):
     asyncio.run(send())
 
 # 爬取 OakHouse 頁面
-URL = "https://www.oakhouse.jp/cn/house/1074#room"
-headers = {"User-Agent": "Mozilla/5.0"}
-response = requests.get(URL, headers=headers)
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)  # 無頭模式，不顯示瀏覽器
+    page = browser.new_page()
+    URL = "https://www.oakhouse.jp/cn/house/1074#room"
+    page.goto(URL)
+
+    # 等待資料加載，直到指定的元素出現
+    page.wait_for_selector("#room.p-room.c-selection")
+
+    # 抓取頁面 HTML
+    html = page.content()
+    soup = BeautifulSoup(html, "html.parser")
+
+    # 抓取 id="room" 且 class="p-room c-selection" 的元素
+    element = soup.find(id="room", class_="p-room c-selection")
+
+    if element:
+        print(element.text)
+    else:
+        print("找不到指定的元素")
+
+    browser.close()
 
 if response.status_code != 200:
     raise RuntimeError(f"爬取失敗，狀態碼 {response.status_code}")

@@ -18,7 +18,10 @@ jobs:
           python-version: '3.10'
 
       - name: 安裝依賴
-        run: pip install requests beautifulsoup4 python-telegram-bot
+        run: |
+          pip install requests beautifulsoup4 python-telegram-bot
+          pip install playwright
+          playwright install  # 安裝 Playwright 所需的瀏覽器
 
       - name: Debug ENV
         run: echo "Token 是 $TELEGRAM_BOT_TOKEN, Chat ID 是 $TO_LIYING_CHAT_ID！"
