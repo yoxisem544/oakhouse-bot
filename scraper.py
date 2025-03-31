@@ -35,7 +35,7 @@ with sync_playwright() as p:
     page.goto(URL)
 
     # 等待資料加載，直到指定的元素出現
-    page.wait_for_selector("#room.p-room.c-selection")
+    page.wait_for_selector("#room")
 
     # 抓取頁面 HTML
     html = page.content()
