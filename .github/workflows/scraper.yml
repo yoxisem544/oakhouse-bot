@@ -20,6 +20,12 @@ jobs:
       - name: 安裝依賴
         run: pip install requests beautifulsoup4 python-telegram-bot
 
+      - name: Debug ENV
+        run: echo "Token 是 $TELEGRAM_BOT_TOKEN, Chat ID 是 $TO_LIYING_CHAT_ID！"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TO_LIYING_CHAT_ID: ${{ secrets.TO_LIYING_CHAT_ID }}
+
       - name: 執行爬取腳本
         run: python scraper.py
         env:
