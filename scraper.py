@@ -38,7 +38,9 @@ soup = BeautifulSoup(response.text, "html.parser")
 
 # 解析房間資訊（這部分需要根據 HTML 結構調整）
 rooms = []
-for room_div in soup.select(".room-list .room-item"):
+room_divs = soup.select(".room-list .room-item")
+print(room_divs)
+for room_div in room_divs:
     room_num = room_div.select_one(".room-number").text.strip()
     room_type = room_div.select_one(".room-type").text.strip()
     availability = room_div.select_one(".availability-date").text.strip()
