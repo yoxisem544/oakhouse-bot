@@ -1,5 +1,6 @@
 import os
 import requests
+import asyncio
 from bs4 import BeautifulSoup
 from telegram import Bot
 
@@ -15,6 +16,15 @@ if not TELEGRAM_BOT_TOKEN or not CHAT_ID:
     raise ValueError("請設置環境變數 TELEGRAM_BOT_TOKEN 和 TO_LIYING_CHAT_ID")
 else:
     print("✅ 環境變數讀取成功！")
+
+# 發送到 Telegram 方法
+def send_telegram_message(bot_token, chat_id, message):
+    bot = Bot(token=bot_token)
+
+    async def send():
+        await bot.send_message(chat_id=chat_id, text=message)
+
+    asyncio.run(send())
 
 # 爬取 OakHouse 頁面
 URL = "https://www.oakhouse.jp/cn/house/1074#room"
@@ -38,8 +48,5 @@ for room_div in soup.select(".room-list .room-item"):
 
 # 構建訊息
 message = "📢 OAKHouse 最新狀態\n" + "\n".join(rooms) if rooms else "目前沒有空房"
-
 # 發送到 Telegram
-bot = Bot(token=TELEGRAM_BOT_TOKEN)
-bot.send_message(chat_id=CHAT_ID, text=message)
-print("訊息已發送至 Telegram")
+send_telegram_message(TELEGRAM_BOT_TOKEN, TO_LIYING_CHAT_ID, message)
