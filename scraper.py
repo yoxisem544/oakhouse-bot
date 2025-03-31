@@ -5,7 +5,7 @@ from telegram import Bot
 
 # 讀取 Telegram Bot Token（從 GitHub Secrets 獲取）
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")  # 你的 Telegram 群組或個人 ID
+CHAT_ID = os.getenv("TO_LIYING_CHAT_ID")  # 你的 Telegram 群組或個人 ID
 
 # 檢查環境變數是否正確
 if not BOT_TOKEN or not CHAT_ID:
