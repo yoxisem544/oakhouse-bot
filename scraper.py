@@ -55,16 +55,7 @@ with sync_playwright() as p:
 
     browser.close()
 
-if response.status_code != 200:
-    raise RuntimeError(f"爬取失敗，狀態碼 {response.status_code}")
-
-soup = BeautifulSoup(response.text, "html.parser")
-
-# 抓取 id="room" 且 class="p-room c-selection" 的元素
-available_room_section = soup.find(id="room", class_="p-room c-selection")
-print(available_room_section)
-
 # 構建訊息
-message = "📢 OAKHouse 最新狀態\n" + "\n".join(rooms) if rooms else "目前沒有空房"
+# message = "📢 OAKHouse 最新狀態\n" + "\n".join(rooms) if rooms else "目前沒有空房"
 # 發送到 Telegram
-send_telegram_message(TELEGRAM_BOT_TOKEN, CHAT_ID, message)
+# send_telegram_message(TELEGRAM_BOT_TOKEN, CHAT_ID, message)
