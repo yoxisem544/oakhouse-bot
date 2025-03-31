@@ -49,4 +49,4 @@ for room_div in soup.select(".room-list .room-item"):
 # 構建訊息
 message = "📢 OAKHouse 最新狀態\n" + "\n".join(rooms) if rooms else "目前沒有空房"
 # 發送到 Telegram
-send_telegram_message(TELEGRAM_BOT_TOKEN, TO_LIYING_CHAT_ID, message)
+send_telegram_message(TELEGRAM_BOT_TOKEN, CHAT_ID, message)
