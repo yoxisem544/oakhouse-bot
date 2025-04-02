@@ -47,15 +47,17 @@ with sync_playwright() as p:
     # 抓取 id="room"
     element = soup.find(id="room")
     # print(element)
+    va = element.find_all("article", attrs={"data-status": "vacancy"})
+    print(va)
 
     total_room_element = element.find(class_="p-filter__result ext-room")
     print("== total_room_element")
     print(total_room_element)
 
-    if element:
-        print(element.text)
-    else:
-        print("找不到指定的元素")
+    # if element:
+    #     print(element.text)
+    # else:
+    #     print("找不到指定的元素")
 
     browser.close()
 
