@@ -42,10 +42,10 @@ def fetch_vacancy_room(url: str):
         # 抓取頁面 HTML
         html = page.content()
         soup = BeautifulSoup(html, "html.parser")
-        print(f"HTML GET! on {name}")
 
         # 取得名字
         name = soup.find(class_="p-description__name").text.replace(" ", "").replace("\n", "")
+        print(f"HTML GET! on {name}")
 
         # 抓取 id="room"
         element = soup.find(id="room")
