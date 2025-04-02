@@ -45,7 +45,7 @@ def fetch_vacancy_room(url: str):
         print("HTML GET!")
 
         # 取得名字
-        name = soup.find(class_="p-description__name")
+        name = soup.find(class_="p-description__name").text.replace(" ", "").replace("\n", "")
 
         # 抓取 id="room"
         element = soup.find(id="room")
