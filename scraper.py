@@ -44,11 +44,11 @@ with sync_playwright() as p:
     soup = BeautifulSoup(html, "html.parser")
     print("HTML GET!")
 
-    # 抓取 id="room" 且 class="p-room c-selection" 的元素
-    element = soup.find(id="room", class_="p-room c-selection")
-    print(element)
+    # 抓取 id="room"
     element = soup.find(id="room")
     print(element)
+
+    total_room_element = element.find(class_="p-filter__result ext-room")
 
     if element:
         print(element.text)
