@@ -51,8 +51,8 @@ with sync_playwright() as p:
     for room in vacancy_rooms:
         room_number = room.find(class_="p-room__caset__number")
         hello = room.find("span")
-        print(room_number.text)
-        print(len(hello))
+        print(room_number.text.replace(" ", ""))
+        print(hello.text.replace(" ", ""))
 
     total_room_element = element.find(class_="p-filter__result ext-room").find(class_="p-filter__max").text.strip()
     print("== total_room_element")
