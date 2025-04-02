@@ -50,9 +50,10 @@ with sync_playwright() as p:
     vacancy_rooms = element.find_all("article", attrs={"data-status": "vacancy"})
     for room in vacancy_rooms:
         room_number = room.find(class_="p-room__caset__number")
-        hello = room.find("span")
-        print(room_number.text.replace(" ", ""))
-        print(hello.text.replace(" ", ""))
+        room_number = room_number.text.replace(" ", "").replace("\n", "")
+        date = room.find("span").text.replace(" ", "")
+        print(room_number)
+        print(date)
 
     total_room_element = element.find(class_="p-filter__result ext-room").find(class_="p-filter__max").text.strip()
     print("== total_room_element")
