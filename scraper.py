@@ -65,8 +65,11 @@ def fetch_vacancy_room(url: str):
         browser.close()
         return name, total_room_element, result_rooms
 
-fetch_vacancy_room("https://www.oakhouse.jp/cn/house/1074#room")
-fetch_vacancy_room("https://www.oakhouse.jp/cn/house/1169#room")
+name1, total1, rooms1 = fetch_vacancy_room("https://www.oakhouse.jp/cn/house/1074#room")
+print(f"🏠 {name1} 空房數 {total1} | {rooms1}")
+
+name2, total2, rooms2 = fetch_vacancy_room("https://www.oakhouse.jp/cn/house/1169#room")
+print(f"🏠 {name2} 空房數 {total2} | {rooms2}")
 
 
 # 構建訊息
