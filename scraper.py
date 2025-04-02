@@ -42,11 +42,13 @@ with sync_playwright() as p:
     # 抓取頁面 HTML
     html = page.content()
     soup = BeautifulSoup(html, "html.parser")
-    print("HTML")
-    print(html)
+    print("HTML GET!")
 
     # 抓取 id="room" 且 class="p-room c-selection" 的元素
     element = soup.find(id="room", class_="p-room c-selection")
+    print(element)
+    element = soup.find(id="room")
+    print(element)
 
     if element:
         print(element.text)
