@@ -47,10 +47,14 @@ with sync_playwright() as p:
     # 抓取 id="room"
     element = soup.find(id="room")
     # print(element)
-    va = element.find_all("article", attrs={"data-status": "vacancy"})
-    print(va)
+    vacancy_rooms = element.find_all("article", attrs={"data-status": "vacancy"})
+    for room in vacancy_rooms:
+        room_number = room.find(class_="p-room__caset__number")
+        hello = room.find("span")
+        print(room_number)
+        print(hello)
 
-    total_room_element = element.find(class_="p-filter__result ext-room")
+    total_room_element = element.find(class_="p-filter__result ext-room").find(class_="p-filter__max").strip()
     print("== total_room_element")
     print(total_room_element)
 
