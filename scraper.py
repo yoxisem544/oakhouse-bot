@@ -71,7 +71,7 @@ urls = [
 
 for url in urls:
     name, total, rooms = fetch_vacancy_room(url)
-    msg = f"🏠 {name} 空房數 {total} | {rooms}"
+    msg = f"🏠 {name} 空房數 {total}\n" + "\n".join(f"• {room}" for room in rooms)
     print(msg)
     send_telegram_message(TELEGRAM_BOT_TOKEN, CHAT_ID, msg)
 
