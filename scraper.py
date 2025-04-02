@@ -27,44 +27,48 @@ def send_telegram_message(bot_token, chat_id, message):
 
     asyncio.run(send())
 
-# 爬取 OakHouse 頁面
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)  # 無頭模式，不顯示瀏覽器
-    page = browser.new_page()
-    URL = "https://www.oakhouse.jp/cn/house/1074#room"
-    page.goto(URL)
+def fetch_vacancy_room(url: str):
+    # 爬取 OakHouse 頁面
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)  # 無頭模式，不顯示瀏覽器
+        page = browser.new_page()
+        URL = "https://www.oakhouse.jp/cn/house/1074#room"
+        page.goto(URL)
 
-    # 等待資料加載，直到指定的元素出現
-    print("開始讀取 URL")
-    page.wait_for_selector("#room")
-    print("等待元素出現")
+        # 等待資料加載，直到指定的元素出現
+        print("開始讀取 URL")
+        page.wait_for_selector("#room")
+        print("等待元素出現")
 
-    # 抓取頁面 HTML
-    html = page.content()
-    soup = BeautifulSoup(html, "html.parser")
-    print("HTML GET!")
+        # 抓取頁面 HTML
+        html = page.content()
+        soup = BeautifulSoup(html, "html.parser")
+        print("HTML GET!")
 
-    # 抓取 id="room"
-    element = soup.find(id="room")
-    # print(element)
-    vacancy_rooms = element.find_all("article", attrs={"data-status": "vacancy"})
-    for room in vacancy_rooms:
-        room_number = room.find(class_="p-room__caset__number")
-        room_number = room_number.text.replace(" ", "").replace("\n", "")
-        date = room.find("span").text.replace(" ", "")
-        print(room_number)
-        print(date)
+        # 取得名字
+        name = soup.find(class_="p-description__name")
 
-    total_room_element = element.find(class_="p-filter__result ext-room").find(class_="p-filter__max").text.strip()
-    print("== total_room_element")
-    print(total_room_element)
+        # 抓取 id="room"
+        element = soup.find(id="room")
+        vacancy_rooms = element.find_all("article", attrs={"data-status": "vacancy"})
+        result_rooms = []
+        for room in vacancy_rooms:
+            room_number = room.find(class_="p-room__caset__number")
+            room_number_plus_date = room_number.text.replace(" ", "").replace("\n", "")
+            print(room_number_plus_date)
+            result_rooms.append(room_number_plus_date)
 
-    # if element:
-    #     print(element.text)
-    # else:
-    #     print("找不到指定的元素")
+        # 抓取總空房
+        total_room_element = element.find(class_="p-filter__result ext-room").find(class_="p-filter__max").text.strip()
+        print("== total_room_element")
+        print(total_room_element)
 
-    browser.close()
+        browser.close()
+        return name, total_room_element, result_rooms
+
+fetch_vacancy_room("https://www.oakhouse.jp/cn/house/1074#room")
+fetch_vacancy_room("https://www.oakhouse.jp/cn/house/1169#room")
+
 
 # 構建訊息
 # message = "📢 OAKHouse 最新狀態\n" + "\n".join(rooms) if rooms else "目前沒有空房"
