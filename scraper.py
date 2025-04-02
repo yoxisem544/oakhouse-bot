@@ -54,7 +54,7 @@ with sync_playwright() as p:
         print(room_number)
         print(hello)
 
-    total_room_element = element.find(class_="p-filter__result ext-room").find(class_="p-filter__max")#.strip()
+    total_room_element = element.find(class_="p-filter__result ext-room").find(class_="p-filter__max").text.strip()
     print("== total_room_element")
     print(total_room_element)
 
