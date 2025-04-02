@@ -32,8 +32,7 @@ def fetch_vacancy_room(url: str):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)  # 無頭模式，不顯示瀏覽器
         page = browser.new_page()
-        URL = "https://www.oakhouse.jp/cn/house/1074#room"
-        page.goto(URL)
+        page.goto(url)
 
         # 等待資料加載，直到指定的元素出現
         print("開始讀取 URL")
