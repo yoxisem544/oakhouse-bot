@@ -2,7 +2,7 @@ name: OakHouse Scraper
 
 on:
   schedule:
-    - cron: '0 12,18 * * *'  # 每小時運行一次
+    - cron: '0 4,10 * * *'  # 每小時運行一次
   workflow_dispatch:  # 允許手動觸發
 
 jobs:
