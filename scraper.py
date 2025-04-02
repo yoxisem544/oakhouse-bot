@@ -42,7 +42,7 @@ def fetch_vacancy_room(url: str):
         # 抓取頁面 HTML
         html = page.content()
         soup = BeautifulSoup(html, "html.parser")
-        print("HTML GET!")
+        print(f"HTML GET! on {name}")
 
         # 取得名字
         name = soup.find(class_="p-description__name").text.replace(" ", "").replace("\n", "")
@@ -54,13 +54,10 @@ def fetch_vacancy_room(url: str):
         for room in vacancy_rooms:
             room_number = room.find(class_="p-room__caset__number")
             room_number_plus_date = room_number.text.replace(" ", "").replace("\n", "")
-            print(room_number_plus_date)
             result_rooms.append(room_number_plus_date)
 
         # 抓取總空房
         total_room_element = element.find(class_="p-filter__result ext-room").find(class_="p-filter__max").text.strip()
-        print("== total_room_element")
-        print(total_room_element)
 
         browser.close()
         return name, total_room_element, result_rooms
