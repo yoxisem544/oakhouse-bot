@@ -49,6 +49,7 @@ with sync_playwright() as p:
     print(element)
 
     total_room_element = element.find(class_="p-filter__result ext-room")
+    print("== total_room_element", total_room_element)
 
     if element:
         print(element.text)
