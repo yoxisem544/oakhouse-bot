@@ -46,10 +46,11 @@ with sync_playwright() as p:
 
     # 抓取 id="room"
     element = soup.find(id="room")
-    print(element)
+    # print(element)
 
     total_room_element = element.find(class_="p-filter__result ext-room")
-    print("== total_room_element", total_room_element)
+    print("== total_room_element")
+    print(total_room_element)
 
     if element:
         print(element.text)
